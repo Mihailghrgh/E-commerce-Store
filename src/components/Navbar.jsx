@@ -10,8 +10,8 @@ const themes = {
 };
 
 const getThemeLocalStorage = () => {
-    return localStorage.getItem('theme') || themes.garden
-}
+  return localStorage.getItem("theme") || themes.garden;
+};
 
 const Navbar = () => {
   const [theme, setTheme] = useState(getThemeLocalStorage);
@@ -60,10 +60,10 @@ const Navbar = () => {
           {/* THEME SETUP */}
           <label className="swap swap-rotate">
             <input type="checkbox" onChange={handleTheme} />
-            {/* SUN */}
-            <BsSunFill className="swap-on h-5 w-5" />
-            {/* MOON */}
+            {/* Moon */}
             <BsMoonFill className="swap-off h-5 w-5" />
+            {/* Sun */}
+            <BsSunFill className="swap-on h-5 w-5" />
           </label>
           {/* CART LINK */}
           <NavLink

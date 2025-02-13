@@ -6,7 +6,7 @@ const Login = () => {
     <section className="h-screen grid place-items-center  bg-transparent">
       <Form
         method="post"
-        className="card w-96 p-8 bg shadow-xl flex flex-col gap-y-4 bg-primary-content"
+        className="card w-96 p-8 bg shadow-xl flex flex-col gap-y-4 bg-primary-content "
       >
         <FormInput
           name="identifier"
