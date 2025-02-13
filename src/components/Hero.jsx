@@ -17,7 +17,7 @@ const Hero = () => {
         <h1 className="max-w-2xl text-4xl font-bold tracking-tight sm:text-6xl text-center md:text-start">
           Changing the way you <span className="text-primary">Decorate</span>
         </h1>
-        <p className="mt-8 text-center max-w-xl text-lg leading-8 md:text-start sm:text-center">
+        <p className="mt-8 text-accent-content text-center max-w-xl text-lg leading-8 md:text-start sm:text-center">
           {" "}
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, eligendi
           odio? Fuga earum, nam iusto quo illum laboriosam dolores hic in quas
