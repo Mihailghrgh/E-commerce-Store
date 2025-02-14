@@ -6,7 +6,6 @@ const url = "/products?featured=true";
 export const loader = async () => {
   const response = await customHook(url);
   const products = response.data.data;
-  console.log(products);
   
   return {products};
 };

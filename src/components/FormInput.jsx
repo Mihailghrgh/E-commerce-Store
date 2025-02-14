@@ -1,13 +1,13 @@
-const FormInput = ({label, name, type, defaultValue}) => {
+const FormInput = ({label, name, type, defaultValue , size}) => {
   return (
-    <label className="form-control">
+    <label className="form-control mt-2">
       <div className="label">
-        <span className="label-text capitalize">{label}</span>
+        <span className="label-text capitalize text-primary">{label}</span>
       </div>
       <input
         type={type}
-        placeholder="Type here"
-        className="input input-bordered"
+        placeholder="type here"
+        className={`input input-bordered ${size}`}
         defaultValue={defaultValue}
         name={name}
       />
