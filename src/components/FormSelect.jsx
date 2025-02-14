@@ -1,6 +1,5 @@
 const FormSelect = ({ name, label, list=[], defaultValue, size }) => {
 
-    console.log(list);
     
   return (
     <div className="form-control mt-2">
