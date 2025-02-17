@@ -1,8 +1,9 @@
-import { BsCart3, BsMoonFill, BsSun, BsSunFill } from "react-icons/bs";
+import { BsCart3, BsMoonFill, BsSunFill } from "react-icons/bs";
 import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import Navlinks from "./Navlinks";
 import { useEffect, useState } from "react";
+import useStore from "../Features/cartSlice";
 
 const themes = {
   garden: "garden",
@@ -22,11 +23,18 @@ const Navbar = () => {
     setTheme(newTheme);
   };
 
+  ////Saving the theme to the local storage for users and useEffect before the component mounts
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
+
+  ////Zustand to update cart amount at the top of the page 
+  const { cart } = useStore();
+  const cartNumItems = cart.numItemsInCart;
+
+  
   return (
     <nav className="bg-primary-content">
       <div className="navbar align-element">
@@ -73,8 +81,7 @@ const Navbar = () => {
             <div className="indicator">
               <BsCart3 className="h-7 w-7" />
               <span className="badge badge-sm badge-primary indicator-item">
-                {" "}
-                8{" "}
+                {cartNumItems}
               </span>
             </div>
           </NavLink>
