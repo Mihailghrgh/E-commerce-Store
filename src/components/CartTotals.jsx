@@ -5,37 +5,33 @@ const CartTotals = () => {
   const { cart, clearCart } = useStore();
 
   return (
-    <div className="card bg-base-300">
+    <div className="card bg-primary-content">
       <div className="card-body">
         <p className="flex justify-between text-xs border-b border-t-info-content pb-2">
-          <span className="font-sans text-xl text-accent-content">
+          <span className="font-medium  text-xs  text-accent-content">
             Subtotal
           </span>
-          <span className="font-sans text-xl text-accent-content">
+          <span className="font-medium  text-xs  text-accent-content">
             {formatPrice(cart.cartTotal)}
           </span>
         </p>
-        <p className="flex justify-between text-xs border-b border-t-info-content pb-2">
-          <span className="font-sans text-xl text-accent-content">
+        <p className="flex justify-between text-base  border-b border-t-info-content pb-2">
+          <span className="font-medium text-xs  text-accent-content">
             Shipping
           </span>
-          <span className="font-sans text-xl text-accent-content">
+          <span className="font-medium  text-xs text-accent-content">
             {formatPrice(500)}
           </span>
         </p>
-        <p className="flex justify-between text-xs border-b border-t-info-content pb-2">
-          <span className="font-sans text-xl text-accent-content">
+         <p className="flex justify-between text-sm mt-4 pb-2">
+          <span>
             Order Total
           </span>
-          <span className="font-sans text-xl text-accent-content">
+          <span className="font-medium">
             {formatPrice(cart.cartTotal + 500)}
           </span>
         </p>
       </div>
-      <button className="btn btn-secondary" onClick={() => clearCart()}>
-        {" "}
-        Reset Cart
-      </button>
     </div>
   );
 };

@@ -57,25 +57,34 @@ const useStore = create(
       }),
     removeItem: (item) =>
       set((state) => {
-        const itemId = item;
-        const id = state.cart.cartItems.find(
-          (item) => item.cartId === itemId.cartId
+        const itemId = item.cartId;
+
+        const existingItem = state.cart.cartItems.find(
+          (cartItem) => cartItem.cartId === itemId
         );
 
-        if (id) {
-          const newCart = state.cart.cartItems.filter(
-            (item) => item.cartId !== itemId
-          );
-          toast.success("Item successfully removed from Cart");
-          return {
-            cart: {
-              ...state.cart,
-              cartItems: [...newCart],
-              numItemsInCart: state.cart.numItemsInCart - 1,
-              cartTotal: state.cart.cartTotal - item.price,
-            },
-          };
-        }
+        const newCart = state.cart.cartItems.filter(
+          (item) => item.cartId !== itemId
+        );
+
+        const newCartTotal = newCart.reduce(
+          (total, cartItem) => total + cartItem.price * cartItem.amount,
+          0
+        );
+
+        if (existingItem) toast.success("Item successfully removed from Cart");
+
+        ////Failsafe incase the existingItem is not existing in the Array
+        return {
+          cart: {
+            ...state.cart,
+            cartItems: newCart,
+            numItemsInCart: existingItem
+              ? state.cart.numItemsInCart - 1
+              : state.cart.numItemsInCart,
+            cartTotal: newCartTotal,
+          },
+        };
       }),
     editItem: ({ item, color, amount }) =>
       set((state) => {
