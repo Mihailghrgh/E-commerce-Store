@@ -4,41 +4,24 @@ import { NavLink } from "react-router-dom";
 import Navlinks from "./Navlinks";
 import { useEffect, useState } from "react";
 import useStore from "../Features/cartSlice";
-
-const themes = {
-  garden: "garden",
-  luxury: "luxury",
-};
-
-const getThemeLocalStorage = () => {
-  return localStorage.getItem("theme") || themes.garden;
-};
+import userSlice from "../Features/userSlice";
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(getThemeLocalStorage);
+  const { initialUser, toggleTheme } = userSlice();
   const handleTheme = () => {
-    const { garden, luxury } = themes;
-    const newTheme = theme === garden ? luxury : garden;
-    document.documentElement.setAttribute("data-theme", theme);
-    setTheme(newTheme);
+    toggleTheme();
   };
 
   ////Saving the theme to the local storage for users and useEffect before the component mounts
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
 
-
-  ////Zustand to update cart amount at the top of the page 
+  ////Zustand to update cart amount at the top of the page
   const { cart } = useStore();
   const cartNumItems = cart.numItemsInCart;
 
-  
   return (
     <nav className="bg-primary-content">
       <div className="navbar align-element">
-        <div className="navbar-start py-2">
+        <div className="navbar-start ">
           {/* TITLES */}
           <NavLink
             to="/"

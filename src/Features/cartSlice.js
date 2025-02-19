@@ -17,7 +17,7 @@ const useStore = create(
     addItem: (item) =>
       set((state) => {
         ////checking existing Item
-        const existingItem = state.cart.cartItems.find(
+        const existingItem = state.cart.cartItems?.find(
           (cartItem) => cartItem.cartId === item.cartId
         );
 
@@ -52,7 +52,6 @@ const useStore = create(
     clearCart: () =>
       set((state) => {
         const updatedCart = defaultState;
-        toast.success("All items removed from Cart");
         return { cart: { ...updatedCart } };
       }),
     removeItem: (item) =>
@@ -72,7 +71,7 @@ const useStore = create(
           0
         );
 
-        if (existingItem) toast.success("Item successfully removed from Cart");
+        if (existingItem) toast.error("Item successfully removed from Cart");
 
         ////Failsafe incase the existingItem is not existing in the Array
         return {
@@ -86,25 +85,22 @@ const useStore = create(
           },
         };
       }),
-    editItem: ({ item, color, amount }) =>
+    editItem: ({ item, amount }) =>
       set((state) => {
+        const newCartItem = state.cart.cartItems.map((cartItem) => {
+          if (cartItem?.cartId === item.cartId) {
+            return { ...cartItem, amount };
+          }
+
+          return cartItem;
+        });
+
         toast.success("Item edited successfully");
+
         return {
           cart: {
             ...state.cart,
-            numItemsInCart: (state.cart.numItemsInCart += amount - item.amount),
-            cartTotal: (state.cart.cartTotal +=
-              item.price * (amount - item.amount)),
-            cartItems: state.cart.cartItems.map((cartItem) => {
-              cartItem.cartId === item.cartId
-                ? {
-                    ...cartItem,
-                    color,
-                    amount,
-                    price: (cartItem.price += item.price * amount),
-                  }
-                : cartItem;
-            }),
+            cartItems: newCartItem,
           },
         };
       }),

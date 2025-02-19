@@ -4,6 +4,11 @@ import useStore from "../Features/cartSlice";
 const CartTotals = () => {
   const { cart, clearCart } = useStore();
 
+  const newCartTotal = cart.cartItems.reduce(
+    (total, cartItem) => total + cartItem.price * cartItem.amount,
+    0
+  );
+
   return (
     <div className="card bg-primary-content">
       <div className="card-body">
@@ -23,13 +28,9 @@ const CartTotals = () => {
             {formatPrice(500)}
           </span>
         </p>
-         <p className="flex justify-between text-sm mt-4 pb-2">
-          <span>
-            Order Total
-          </span>
-          <span className="font-medium">
-            {formatPrice(cart.cartTotal + 500)}
-          </span>
+        <p className="flex justify-between text-sm mt-4 pb-2">
+          <span>Order Total</span>
+          <span className="font-medium">{formatPrice(newCartTotal + 500)}</span>
         </p>
       </div>
     </div>

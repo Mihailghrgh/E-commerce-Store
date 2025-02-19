@@ -1,24 +1,52 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import userSlice from "../Features/userSlice";
+import useStore from "../Features/cartSlice";
+import { toast } from "react-toastify";
 
 const Header = () => {
+  const { initialUser, userLogout } = userSlice();
+  const navigate = useNavigate();
+  const { clearCart } = useStore();
+
+  const handleLogout = () => {
+    navigate("/");
+    clearCart();
+    userLogout();
+    toast.success('User logged out successfully')
+  };
   return (
-    <header className="bg-primary-content py-2 text-neutral-content">
-      <div className="align-element flex justify-center sm:justify-end">
-        {/* ////User */}
+    <header className="bg-primary-content ">
+      <div className="py-4 md:py-2 flex justify-center">
         {/* ////Links//// */}
-        <div className="flex gap-x-6 justify-center items-center">
-          <Link
-            to="/login"
-            className="link link-hover font-semibold link-primary text-xs sm:text-sm"
-          >
-            Sign In / Guest
-          </Link>
-          <Link
-            to="/register"
-            className="link link-hover text-xs font-semibold link-primary sm:text-sm"
-          >
-            Create Account
-          </Link>
+        <div>
+          {initialUser.user.username === null ? (
+            <div className="flex gap-x-6 justify-center items-center">
+              <Link
+                to="/login"
+                className="link link-hover font-semibold link-primary"
+              >
+                Sign In / Guest
+              </Link>
+              <Link
+                to="/register"
+                className="link link-hover font-semibold link-primary"
+              >
+                Create Account
+              </Link>
+            </div>
+          ) : (
+            <div className="flex items-center gap-x-4 ml-auto">
+              <p className="text-primary font-semibold">
+                Welcome back, {initialUser.user.username} !{" "}
+              </p>
+              <button
+                className="btn btn-xs btn-outline btn-primary"
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

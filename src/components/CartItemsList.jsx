@@ -3,9 +3,16 @@ import { formatPrice, generateAmount } from "../utils";
 
 const CartItemsList = () => {
   const { cart, removeItem, editItem } = useStore();
+
   return (
     <>
       {cart.cartItems.map((item) => {
+        const handleAmount = (item, e) => {
+          editItem({ item: item, amount: e.target.value });
+        };
+
+        if (!item) return null;
+
         return (
           <div
             key={item.cartId}
@@ -45,12 +52,17 @@ const CartItemsList = () => {
                   name="amount"
                   id="amount"
                   className="mt-2 w-14 select select-base select-bordered select-xs"
+                  value={item.amount}
+                  onChange={(e) => handleAmount(item, e)}
                 >
-                  {generateAmount(item.amount + 5)}
+                  {generateAmount(5)}
                 </select>
               </div>
               {/* REMOVE ITEM */}
-              <button className="mt-3 link link-primary link-hover text-sm">
+              <button
+                className="mt-3 link link-primary link-hover text-sm"
+                onClick={() => removeItem(item)}
+              >
                 remove
               </button>
             </div>

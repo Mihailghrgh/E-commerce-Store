@@ -100,7 +100,7 @@ const SingleProduct = () => {
               value={amount}
               onChange={handleAmount}
             >
-              {generateAmount(10)}
+              {generateAmount(5)}
             </select>
           </div>
           {/* //! Cart Button to add the items to the Zustand UseStore Method */}
