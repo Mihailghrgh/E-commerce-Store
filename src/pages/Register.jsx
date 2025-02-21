@@ -1,8 +1,24 @@
 import { FormInput, SubmitBtn } from "../components/index";
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
+import { customHook } from "../utils";
+import { toast } from "react-toastify";
 
-export const action = async () => {
-  return null;
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    const response = await customHook.post(`/auth/local/register`, data);
+    toast.success("User registered successfully");
+    return redirect("/login");
+  } catch (error) {
+    console.log(error);
+    const errorMessage =
+      error?.response?.data?.error?.message ||
+      `please double check the credentials`;
+    toast.error(errorMessage);
+    return null;
+  }
 };
 const Register = () => {
   return (
@@ -12,10 +28,10 @@ const Register = () => {
         className="card w-96 p-8 bg shadow-lg flex flex-col gap-y-1 bg-primary-content"
       >
         <FormInput
-          name="text"
+          name="username"
           label="username"
           type="username"
-          defaultValue="Jane Doe"
+          defaultValue="Jane1 Doe"
         />
         <FormInput
           name="email"
@@ -27,7 +43,7 @@ const Register = () => {
           name="password"
           label="password"
           type="password"
-          defaultValue="your password"
+          defaultValue="secret"
         />
         <div className="mt-3">
           <SubmitBtn text="Create Account" color="primary" />
