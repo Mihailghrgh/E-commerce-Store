@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { toast } from "react-toastify";
 import { persist } from "zustand/middleware";
 
 const themes = {
@@ -23,10 +22,8 @@ const userSlice = create(
     initialUser: initialState,
     userLogin: (item) =>
       set((state) => {
-        console.log("login");
-        const loginName = item;
+        const loginName = item.user.username;
 
-        toast.success("User authenticated successfully ");
         return {
           initialUser: { ...state.initialUser, user: { username: loginName } },
         };

@@ -37,7 +37,10 @@ const Header = () => {
           ) : (
             <div className="flex items-center gap-x-4 ml-auto">
               <p className="text-primary font-semibold">
-                Welcome back, {initialUser.user.username} !{" "}
+                {initialUser.user.username === "demo user"
+                  ? `Logged in as Guest`
+                  : `Welcome back ${initialUser.user.username}!`}
+                
               </p>
               <button
                 className="btn btn-xs btn-outline btn-primary"

@@ -1,11 +1,13 @@
 import useStore from "../Features/cartSlice";
 import { CartItemsList, SectionTitle, CartTotals } from "../components";
 import { Link } from "react-router-dom";
+import userSlice from "../Features/userSlice";
 
 const Cart = () => {
   ////Temporary
-  const { cart, clearCart } = useStore();
-  const user = null;
+  const { cart } = useStore();
+  const { initialUser } = userSlice();
+  const user = initialUser.user.username;
 
   if (cart.numItemsInCart === 0) {
     return <SectionTitle text="Your cart is Empty" />;

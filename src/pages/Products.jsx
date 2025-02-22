@@ -20,6 +20,7 @@ export const loader = async ({ request }) => {
     ...new URL(request.url).searchParams.entries(),
   ]);
 
+  ////Requests the new Options based on the Filter input from the loader and returns as well the new Items selected
   const response = await customHook(url, { params });
   return { products: response.data.data, meta: response.data.meta, params };
 };
