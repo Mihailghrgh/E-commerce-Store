@@ -9,6 +9,12 @@ const PaginationContainer = () => {
     return index + 1;
   });
 
+  const visiblePages = 6;
+  const startPage = Math.max(1, page - Math.floor(visiblePages / 2));
+  const endPage = Math.min(pageCount, startPage + visiblePages - 1);
+
+  const displayedPages = pages.slice(startPage - 1, endPage);
+
   const { search, pathname } = useLocation();
 
   const navigate = useNavigate();
@@ -22,42 +28,29 @@ const PaginationContainer = () => {
   if (pageCount < 2) return null;
 
   return (
-    <div className="mt-16 flex justify-center sm:justify-end">
+    <div className="mt-16 flex justify-center ">
       <div className="join">
         <button
-          className="btn btn-md"
-          onClick={() => {
-            let prevPage = page - 1;
-            if (prevPage < 1) {
-              prevPage === pageCount;
-            }
-            handlePageChange(prevPage);
-          }}
+          className="btn btn-md bg-secondary-content"
+          onClick={() => handlePageChange(page > 1 ? page - 1 : pageCount)}
         >
           Prev
         </button>
-        {pages.map((item) => {
-          return (
-            <button
-              key={item}
-              onClick={() => handlePageChange(item)}
-              className={`btn btn-md border-none join-item ${
-                item === page ? " border-base-300" : ""
-              }`}
-            >
-              {item}
-            </button>
-          );
-        })}
+        {/* Render only limited pages */}
+        {displayedPages.map((item) => (
+          <button
+            key={item}
+            onClick={() => handlePageChange(item)}
+            className={`btn join-item ${
+              item === page ? " bg-primary " : " bg-secondary-content"
+            }`}
+          >
+            {item}
+          </button>
+        ))}
         <button
-          className="btn btn-md"
-          onClick={() => {
-            let nextPage = page + 1;
-            if (nextPage > pageCount) {
-              nextPage === 1;
-            }
-            handlePageChange(nextPage);
-          }}
+          className="btn btn-md bg-secondary-content"
+          onClick={() => handlePageChange(page < pageCount ? page + 1 : 1)}
         >
           Next
         </button>

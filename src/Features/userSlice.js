@@ -14,6 +14,7 @@ const getThemeLocalStorage = () => {
 
 const initialState = {
   user: { username: "Mihail" },
+  jwt: ``,
   theme: getThemeLocalStorage(),
 };
 
@@ -22,10 +23,16 @@ const userSlice = create(
     initialUser: initialState,
     userLogin: (item) =>
       set((state) => {
+        localStorage.clear();
         const loginName = item.user.username;
+        const jwtToken = item.jwt;
 
         return {
-          initialUser: { ...state.initialUser, user: { username: loginName } },
+          initialUser: {
+            ...state.initialUser,
+            user: { username: loginName },
+            jwt: jwtToken,
+          },
         };
       }),
     userLogout: (item) =>
@@ -34,10 +41,15 @@ const userSlice = create(
 
         let localUser = state.initialUser.user.username;
         localUser = null;
+        const localJwt = null;
         localStorage.removeItem("user");
 
         return {
-          initialUser: { ...state.initialUser, user: { username: localUser } },
+          initialUser: {
+            ...state.initialUser,
+            user: { username: localUser },
+            jwt: localJwt,
+          },
         };
       }),
     toggleTheme: () =>

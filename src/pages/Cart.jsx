@@ -27,7 +27,7 @@ const Cart = () => {
               </Link>
             ) : (
               <Link to="/login" className="btn btn-primary btn-block mt-8">
-                please login
+                Please login to checkout
               </Link>
             )}
           </div>
