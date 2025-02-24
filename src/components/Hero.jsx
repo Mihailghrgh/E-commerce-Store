@@ -19,9 +19,10 @@ const Hero = () => {
         </h1>
         <p className="mt-8 text-accent-content text-center max-w-xl text-lg leading-8 md:text-start sm:text-center">
           {" "}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut, eligendi
-          odio? Fuga earum, nam iusto quo illum laboriosam dolores hic in quas
-          aut non repellat ut itaque pariatur. Neque, unde.
+          Comfy – Elevate your home with stylish, high-quality furniture
+          designed for comfort and elegance. From cozy sofas to sleek dining
+          sets, we bring warmth and style to every space. Shop Comfy, where
+          comfort meets design!
         </p>
         <div className="mt-10 flex justify-center sm:justify-center md:justify-start">
           {" "}
