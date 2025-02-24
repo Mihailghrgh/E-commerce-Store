@@ -48,16 +48,12 @@ const Orders = () => {
   if (meta.pagination.total < 1) {
     return (
       <>
-        <Header />
-        <Navbar />
         <SectionTitle text="No orders yet... please place an order" />
       </>
     );
   }
   return (
     <>
-      <Header />
-      <Navbar />
       <SectionTitle text="Orders" />
       <OrdersList />
       <PaginationContainer />

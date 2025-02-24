@@ -13,7 +13,7 @@ const getThemeLocalStorage = () => {
 };
 
 const initialState = {
-  user: { username: "Mihail" },
+  user: { username: "" },
   jwt: ``,
   theme: getThemeLocalStorage(),
 };
