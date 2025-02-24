@@ -60,13 +60,14 @@ const router = createBrowserRouter([
         loader: CheckoutLoader,
         action: checkoutAction,
       },
+      {
+        path: "orders",
+        element: <Orders />,
+        loader: OrdersLoader,
+      },
     ],
   },
-  {
-    path: "orders",
-    element: <Orders />,
-    loader: OrdersLoader,
-  },
+
   {
     path: "register",
     element: <Register />,
