@@ -14,7 +14,7 @@ const getThemeLocalStorage = () => {
 
 const initialState = {
   user: { username: "" },
-  jwt: ``,
+  jwt: "",
   theme: getThemeLocalStorage(),
 };
 
@@ -37,7 +37,7 @@ const userSlice = create(
       }),
     userLogout: (item) =>
       set((state) => {
-        let localUser = "";
+        let localUser = null;
         const localJwt = "";
         localStorage.removeItem("user");
 

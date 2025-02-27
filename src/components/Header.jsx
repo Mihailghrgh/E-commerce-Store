@@ -22,7 +22,7 @@ const Header = () => {
       <div className="py-4 md:py-2 flex justify-center">
         {/* ////Links//// */}
         <div>
-          {initialUser.user.username === "" ? (
+          {initialUser.user.username === null ? (
             <div className="flex gap-x-6 justify-center items-center">
               <Link
                 to="/login"
