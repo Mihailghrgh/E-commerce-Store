@@ -1,16 +1,16 @@
 import { CheckoutForm, SectionTitle, CartTotals } from "../components";
 import useStore from "../Features/cartSlice";
-import { Link, redirect } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import userSlice from "../Features/userSlice";
 import { checkLogin } from "../utils/userLogin";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 export const loader = () => {
   const user = checkLogin();
 
-  if (user.user.username === null) {
-
-    return redirect("/login?warning=checkout");
+  if (user.user.username === "") {
+    return redirect("/login");
   }
 
   return null;
@@ -18,6 +18,14 @@ export const loader = () => {
 
 const Checkout = () => {
   const { cart } = useStore();
+  const { initialUser } = userSlice();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (initialUser.user.username === "") {
+      navigate("/login", { replace: true });
+    }
+  }, [initialUser]);
 
   if (cart.numItemsInCart === 0) {
     return <SectionTitle text="Your cart is Empty" />;

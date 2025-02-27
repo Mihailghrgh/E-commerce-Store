@@ -4,16 +4,28 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { generateAmount } from "../utils";
 import useStore from "../Features/cartSlice";
+import { Query } from "@tanstack/react-query";
 
-export const loader = async ({ params }) => {
-  const response = await customHook(`/products/${params.id}`);
-
-  ////Simple loader function to add all the items from the Axios response
-  const { title, image, price, description, company, colors } =
-    response.data.data.attributes;
-
-  return { title, image, price, description, company, colors, params };
+const singleProductQuery = (id) => {
+  return {
+    queryKey: ["singleProduct", id],
+    queryFn: () => customHook(`/products/${id}`),
+  };
 };
+
+export const loader =
+  (queryClient) =>
+  async ({ params }) => {
+    const response = await queryClient.ensureQueryData(
+      singleProductQuery(params.id)
+    );
+
+    ////Simple loader function to add all the items from the Axios response
+    const { title, image, price, description, company, colors } =
+      response.data.data.attributes;
+
+    return { title, image, price, description, company, colors, params };
+  };
 
 const SingleProduct = () => {
   //// useLoader to fetch data with the description of the item pressed on to display on this page

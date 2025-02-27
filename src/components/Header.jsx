@@ -2,24 +2,27 @@ import { Link, useNavigate } from "react-router-dom";
 import userSlice from "../Features/userSlice";
 import useStore from "../Features/cartSlice";
 import { toast } from "react-toastify";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Header = () => {
   const { initialUser, userLogout } = userSlice();
   const navigate = useNavigate();
   const { clearCart } = useStore();
+  const queryClient = useQueryClient;
 
   const handleLogout = () => {
     navigate("/");
     clearCart();
     userLogout();
-    toast.success('User logged out successfully')
+    toast.success("User logged out successfully");
+    queryClient.removeQueries();
   };
   return (
     <header className="bg-primary-content ">
       <div className="py-4 md:py-2 flex justify-center">
         {/* ////Links//// */}
         <div>
-          {initialUser.user.username === '' ? (
+          {initialUser.user.username === "" ? (
             <div className="flex gap-x-6 justify-center items-center">
               <Link
                 to="/login"
@@ -40,7 +43,6 @@ const Header = () => {
                 {initialUser.user.username === "demo user"
                   ? `Logged in as Guest`
                   : `Welcome back ${initialUser.user.username}!`}
-                
               </p>
               <button
                 className="btn btn-xs btn-outline btn-primary"

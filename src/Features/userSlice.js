@@ -37,11 +37,8 @@ const userSlice = create(
       }),
     userLogout: (item) =>
       set((state) => {
-        console.log("logout");
-
-        let localUser = state.initialUser.user.username;
-        localUser = null;
-        const localJwt = null;
+        let localUser = "";
+        const localJwt = "";
         localStorage.removeItem("user");
 
         return {
