@@ -13,8 +13,8 @@ const getThemeLocalStorage = () => {
 };
 
 const initialState = {
-  user: { username: "" },
-  jwt: "",
+  user: { username: null },
+  jwt: null,
   theme: getThemeLocalStorage(),
 };
 
@@ -37,15 +37,13 @@ const userSlice = create(
       }),
     userLogout: (item) =>
       set((state) => {
-        let localUser = null;
-        const localJwt = "";
         localStorage.removeItem("user");
-
+        sessionStorage.clear();
         return {
           initialUser: {
             ...state.initialUser,
-            user: { username: localUser },
-            jwt: localJwt,
+            user: { username: null },
+            jwt: null,
           },
         };
       }),
